@@ -87,7 +87,7 @@ def AddSaintLuLogo(filePath):
             print('Adding the Logo on file ',os.path.basename(WithLogo_filepath))
 
             # Link to the PDF With the logo that will be applied
-            logo = r'\\SERVER1\ServerData\Projects\LetterHead.DONOTMOVE.pdf'
+            logo = r'\\SERVER1\ServerData\Projects\_AddLogoToPdf\LetterHead.DONOTMOVE.pdf'
             # Name of the file that will be created
             WithLogo = WithLogo_filepath
 
