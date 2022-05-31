@@ -3,6 +3,7 @@ import os
 import schedule
 import time
 import datetime
+import shutil
 
 def getListOfFiles(dirName):
     # ==========================================
@@ -27,7 +28,7 @@ def AddMetadata(pdfFileInput,pdfFileOutput):
         
     # Add the metadata
     input_info=pdfFileInput.getDocumentInfo()
-    print(input_info)
+    # print(input_info)
     #Author
     if hasattr(input_info, "author"):
         output_Author=input_info.author
@@ -53,10 +54,10 @@ def AddMetadata(pdfFileInput,pdfFileOutput):
         output_CreationDate = output_ModDate
     pdfFileOutput.addMetadata(
         {
-            "/Author": output_Author,
+            "/Author": str(output_Author),
             "/Producer": "PDFLogo for SaintLu by Pierrick BLAISE",
-            "/CreationDate": output_CreationDate,
-            "/ModDate": output_ModDate,
+            "/CreationDate": str(output_CreationDate),
+            "/ModDate": str(output_ModDate),
             "/Title": str(output_Title),
             "/Subject": str(output_Subject),
             "/Creator": "pyPDF2"
@@ -67,17 +68,17 @@ def AddMetadata(pdfFileInput,pdfFileOutput):
 def AddSaintLuLogo(filePath):
     for pdf_file in getListOfFiles(filePath):
         # List the file ending with _NoLogo.pdf
-        if pdf_file.endswith("_NoLogo.pdf"):
+        if pdf_file.endswith("_NoLogo1.pdf"):
             NoLogo_file = pdf_file
             #Display the list of files
             #print(os.path.abspath(NoLogo_file))
             NoLogo_filepath = os.path.abspath(NoLogo_file)
-            if pdf_file.endswith("_100_NoLogo.pdf"):
-                WithLogo_filepath = NoLogo_filepath.replace('_100_NoLogo','_Original')
-            elif pdf_file.endswith("_010_NoLogo.pdf"):
-                WithLogo_filepath = NoLogo_filepath.replace('_010_NoLogo','_Copy')
-            elif pdf_file.endswith("_001_NoLogo.pdf"):
-                WithLogo_filepath = NoLogo_filepath.replace('_001_NoLogo','_Trial')
+            if pdf_file.endswith("_100_NoLogo1.pdf"):
+                WithLogo_filepath = NoLogo_filepath.replace('_100_NoLogo1','_Original')
+            elif pdf_file.endswith("_010_NoLogo1.pdf"):
+                WithLogo_filepath = NoLogo_filepath.replace('_010_NoLogo1','_Copy')
+            elif pdf_file.endswith("_001_NoLogo1.pdf"):
+                WithLogo_filepath = NoLogo_filepath.replace('_001_NoLogo1','_Trial')
             else:
                 WithLogo_filepath = NoLogo_filepath.replace('_NoLogo','')
             #Display the list of files that will be created
@@ -105,7 +106,7 @@ def AddSaintLuLogo(filePath):
                     output.addPage(pdf_page)
 
                 #AddMetadata
-                AddMetadata(input_pdf,output)
+                # AddMetadata(input_pdf,output)
                 
                 # Save the new PDF as a file
                 with open(WithLogo, "wb") as WithLogo_file:
@@ -116,8 +117,15 @@ def AddSaintLuLogo(filePath):
             logo_file.close()
             input_file.close()
             #Delete the "NoLogo" File
-            os.remove(NoLogo_filepath)
-            print('Deleting the file ',os.path.basename(NoLogo_filepath))
+            # os.remove(NoLogo_filepath)
+
+            # Move the noLogo File to Archives
+
+            newpath = os.path.join(r'\\SERVER1\ServerData\Archives',os.path.basename(NoLogo_filepath))
+            if not os.path.exists(r'\\SERVER1\ServerData\Archives'):
+                os.makedirs(r'\\SERVER1\ServerData\Archives')
+            shutil.move(NoLogo_filepath,newpath)
+            print('Moving the file to Archives',os.path.basename(NoLogo_filepath))
             print('--------------------------- Success -------------------------------')
     print('Script PDFLogo Successfully Executed at',datetime.datetime.now())
     print('Folder: ',filePath)
