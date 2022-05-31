@@ -1,2 +1,2 @@
-start "" pythonw "E:\Projects\_AddLogoToPdf\PdfLogo.pym"
+start "" pythonw "E:\Projects\_AddLogoToPdf\PdfLogo.py"
 exit
