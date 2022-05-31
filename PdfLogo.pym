@@ -67,17 +67,17 @@ def AddMetadata(pdfFileInput,pdfFileOutput):
 def AddSaintLuLogo(filePath):
     for pdf_file in getListOfFiles(filePath):
         # List the file ending with _NoLogo.pdf
-        if pdf_file.endswith("_NoLogo1.pdf"):
+        if pdf_file.endswith("_NoLogo.pdf"):
             NoLogo_file = pdf_file
             #Display the list of files
             #print(os.path.abspath(NoLogo_file))
             NoLogo_filepath = os.path.abspath(NoLogo_file)
-            if pdf_file.endswith("_100_NoLogo1.pdf"):
-                WithLogo_filepath = NoLogo_filepath.replace('_100_NoLogo1','_Original')
-            elif pdf_file.endswith("_010_NoLogo1.pdf"):
-                WithLogo_filepath = NoLogo_filepath.replace('_010_NoLogo1','_Copy')
-            elif pdf_file.endswith("_001_NoLogo1.pdf"):
-                WithLogo_filepath = NoLogo_filepath.replace('_001_NoLogo1','_Trial')
+            if pdf_file.endswith("_100_NoLogo.pdf"):
+                WithLogo_filepath = NoLogo_filepath.replace('_100_NoLogo','_Original')
+            elif pdf_file.endswith("_010_NoLogo.pdf"):
+                WithLogo_filepath = NoLogo_filepath.replace('_010_NoLogo','_Copy')
+            elif pdf_file.endswith("_001_NoLogo.pdf"):
+                WithLogo_filepath = NoLogo_filepath.replace('_001_NoLogo','_Trial')
             else:
                 WithLogo_filepath = NoLogo_filepath.replace('_NoLogo','')
             #Display the list of files that will be created
