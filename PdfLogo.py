@@ -117,16 +117,20 @@ def AddSaintLuLogo(filePath):
             logo_file.close()
             input_file.close()
             #Delete the "NoLogo" File
-            # os.remove(NoLogo_filepath)
+            #os.remove(NoLogo_filepath)
 
             # Move the noLogo File to Archives
-
-            newpath = os.path.join(r'\\SERVER1\ServerData\Archives',os.path.basename(NoLogo_filepath))
-            if not os.path.exists(r'\\SERVER1\ServerData\Archives'):
-                os.makedirs(r'\\SERVER1\ServerData\Archives')
-            shutil.move(NoLogo_filepath,newpath)
-            print('Moving the file to Archives',os.path.basename(NoLogo_filepath))
-            print('--------------------------- Success -------------------------------')
+            try:
+                newpath = os.path.join(r'\\SERVER1\ServerData\Archives',os.path.basename(NoLogo_filepath))
+                if not os.path.exists(r'\\SERVER1\ServerData\Archives'):
+                    os.makedirs(r'\\SERVER1\ServerData\Archives')
+                shutil.move(NoLogo_filepath,newpath)
+                print('Moving the file to Archives',os.path.basename(NoLogo_filepath))
+                print('--------------------------- Success -------------------------------')
+            except Exception as e:
+                pass
+                print("something went wrong while moving the file:")
+                print(e)
     print('Script PDFLogo Successfully Executed at',datetime.datetime.now())
     print('Folder: ',filePath)
 
