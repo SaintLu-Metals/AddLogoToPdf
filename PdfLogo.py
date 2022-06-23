@@ -147,7 +147,7 @@ print('=========================== Saint Lu Metals PDFLogo =====================
 print('This script automatically add the SaintLu Logo to the PDF Files generated from Klaes.')
 print('If there is any issues with this script, contact Pierrick Blaise: bpierrick@gmail.com')
 print('====================== /!\ DO NOT CLOSE THIS WINDOW /!\ =============================')
-schedule.every(5).seconds.do(AddSaintLuLogo,r'\\SERVER1\ServerData\Projects')
+schedule.every(2).seconds.do(AddSaintLuLogo,r'\\SERVER1\ServerData\Projects')
 schedule.every(15).seconds.do(AddSaintLuLogo,r'\\SERVER1\ServerData\Accounting\Klaes PriceList')
 while True:
     try:
