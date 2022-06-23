@@ -81,6 +81,12 @@ def AddSaintLuLogo(filePath):
                 WithLogo_filepath = NoLogo_filepath.replace('_001_NoLogo','_Trial')
             else:
                 WithLogo_filepath = NoLogo_filepath.replace('_NoLogo','')
+            # Test if the file with logo already exist
+            if os.path.exists(WithLogo_filepath):
+                now = datetime.datetime.now()
+                date_time = now.strftime("%Y%m%d%H%M%S")
+                WithLogo_filepath = WithLogo_filepath.replace('.pdf','_')
+                WithLogo_filepath = WithLogo_filepath + date_time + str(".pdf")
             #Display the list of files that will be created
             #print(WithLogo_filepath)
             print('---------------------- New File Detected --------------------------')
@@ -109,6 +115,7 @@ def AddSaintLuLogo(filePath):
                 AddMetadata(input_pdf,output)
                 
                 # Save the new PDF as a file
+                #Test if the file already exist
                 with open(WithLogo, "wb") as WithLogo_file:
                     output.write(WithLogo_file)
                 
