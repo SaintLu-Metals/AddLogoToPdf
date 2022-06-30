@@ -114,34 +114,30 @@ def AddSaintLuLogo(filePath):
                 #AddMetadata
                 AddMetadata(input_pdf,output)
                 
+                # Save the new PDF as a file
+                #Test if the file already exist
+                with open(WithLogo, "wb") as WithLogo_file:
+                    output.write(WithLogo_file)
                 
                 
-                
+            WithLogo_file.close()
+            logo_file.close()
+            input_file.close()
+            #Delete the "NoLogo" File
+            #os.remove(NoLogo_filepath)
 
-
-            # If possible Move the noLogo File to Archives and create the new file with a logo
-            # If not possible, display an error message
+            # Move the noLogo File to Archives
             try:
                 newpath = os.path.join(r'\\SERVER1\ServerData\Archives',os.path.basename(NoLogo_filepath))
                 if not os.path.exists(r'\\SERVER1\ServerData\Archives'):
                     os.makedirs(r'\\SERVER1\ServerData\Archives')
                 shutil.move(NoLogo_filepath,newpath)
                 print('Moving the file to Archives',os.path.basename(NoLogo_filepath))
-                # Save the new PDF as a file
-                #Test if the file already exist
-                with open(WithLogo, "wb") as WithLogo_file:
-                    print('Creating the new file ',os.path.basename(WithLogo_filepath))
-                    output.write(WithLogo_file)
                 print('--------------------------- Success -------------------------------')
             except Exception as e:
                 pass
-                print("something went wrong while moving the file: ")
+                print("something went wrong while moving the file:")
                 print(e)
-            WithLogo_file.close()
-            logo_file.close()
-            input_file.close()
-            #Delete the "NoLogo" File
-            #os.remove(NoLogo_filepath)
     print('Script PDFLogo Successfully Executed at',datetime.datetime.now())
     print('Folder: ',filePath)
 
