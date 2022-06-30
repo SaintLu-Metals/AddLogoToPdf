@@ -87,6 +87,7 @@ def AddSaintLuLogo(filePath):
                 date_time = now.strftime("%Y%m%d%H%M%S")
                 WithLogo_filepath = WithLogo_filepath.replace('.pdf','_')
                 WithLogo_filepath = WithLogo_filepath + date_time + str(".pdf")
+            
             #Display the list of files that will be created
             #print(WithLogo_filepath)
             print('---------------------- New File Detected --------------------------')
@@ -97,6 +98,8 @@ def AddSaintLuLogo(filePath):
             # Name of the file that will be created
             WithLogo = WithLogo_filepath
 
+            # Open the file with logo
+            WithLogo_file = open(WithLogo, "wb")
             # Open the NoLogo File, Merge it with the Logo and save it
             with open(NoLogo_file, "rb") as input_file, open(logo, "rb") as logo_file:
                 input_pdf = PdfFileReader(input_file)
@@ -114,10 +117,7 @@ def AddSaintLuLogo(filePath):
                 #AddMetadata
                 AddMetadata(input_pdf,output)
                 
-                # Save the new PDF as a file
-                #Test if the file already exist
-                with open(WithLogo, "wb") as WithLogo_file:
-                    output.write(WithLogo_file)
+                output.write(WithLogo_file)
                 
                 
             WithLogo_file.close()
@@ -132,12 +132,20 @@ def AddSaintLuLogo(filePath):
                 if not os.path.exists(r'\\SERVER1\ServerData\Archives'):
                     os.makedirs(r'\\SERVER1\ServerData\Archives')
                 shutil.move(NoLogo_filepath,newpath)
+                
                 print('Moving the file to Archives',os.path.basename(NoLogo_filepath))
                 print('--------------------------- Success -------------------------------')
+                # Save the new PDF as a file
+                
             except Exception as e:
                 pass
+                # If the file cannot be moved, remove the created file to avoid future conflict
+                os.remove(WithLogo_filepath)
                 print("something went wrong while moving the file:")
                 print(e)
+
+            
+
     print('Script PDFLogo Successfully Executed at',datetime.datetime.now())
     print('Folder: ',filePath)
 
