@@ -93,8 +93,7 @@ def AddSaintLuLogo(filePath):
             
             # Link to the PDF With the logo that will be applied
             logo = r'\\SERVER1\ServerData\Projects\_AddLogoToPdf\LetterHead.DONOTMOVE.pdf'
-            # Name of the file that will be created
-            WithLogo = WithLogo_filepath
+            
 
             # Test if the file with logo already exist
             if os.path.exists(WithLogo_filepath):
@@ -102,10 +101,14 @@ def AddSaintLuLogo(filePath):
                 time.sleep(2)
                 if os.path.exists(WithLogo_filepath):
                     logging.info('The file %s already exist',os.path.basename(WithLogo_filepath))
+                    logging.info('Adding a Timestamp at the end of the file')
                     now = datetime.datetime.now()
                     date_time = now.strftime("%Y%m%d%H%M%S")
                     WithLogo_filepath = WithLogo_filepath.replace('.pdf','_')
                     WithLogo_filepath = WithLogo_filepath + date_time + str(".pdf")
+            
+            # Name of the file that will be created
+            WithLogo = WithLogo_filepath
             
             # Open the file with logo
             WithLogo_file = open(WithLogo, "wb")
