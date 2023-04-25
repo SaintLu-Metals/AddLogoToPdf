@@ -177,11 +177,11 @@ print('====================== /!\ DO NOT CLOSE THIS WINDOW /!\ =================
 logFileName='AddLogoToPdf.log'
 logging.basicConfig(
     filename=logFileName,
-    filemode='w', 
+    filemode='a', 
     format='%(asctime)s - %(levelname)s:%(message)s',
     level=logging.INFO
 )
-logging.info('===== Script Initiated ====')
+logging.info('===== Script Initiated =====')
 
 schedule.every(2).seconds.do(AddSaintLuLogo,r'\\SERVER1\ServerData\Projects')
 schedule.every(15).seconds.do(AddSaintLuLogo,r'\\SERVER1\ServerData\Accounting\Klaes PriceList')
