@@ -178,7 +178,7 @@ print('This script automatically add the SaintLu Logo to the PDF Files generated
 print('If there is any issues with this script, contact Pierrick Blaise: bpierrick@gmail.com')
 print('====================== /!\ DO NOT CLOSE THIS WINDOW /!\ =============================')
 #basic logging config
-logFileName='AddLogoToPdf.log'
+logFileName='E:\Projects\_AddLogoToPdf\AddLogoToPdf.log'
 logging.basicConfig(
     filename=logFileName,
     filemode='a', 
