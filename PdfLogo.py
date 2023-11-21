@@ -97,10 +97,10 @@ def AddSaintLuLogo(filePath):
 
                 # Test if the file with logo already exist
                 if os.path.exists(WithLogo_filepath):
-                    logging.info('The file %s already exist. Trying again in 2s',os.path.basename(WithLogo_filepath))
+                    logging.info('The file "%s" already exist. Trying again in 2s',os.path.basename(WithLogo_filepath))
                     time.sleep(2)
                     if os.path.exists(WithLogo_filepath):
-                        logging.info('The file %s already exist',os.path.basename(WithLogo_filepath))
+                        logging.info('The file "%s" already exist',os.path.basename(WithLogo_filepath))
                         logging.info('Adding a Timestamp at the end of the file')
                         now = datetime.datetime.now()
                         date_time = now.strftime("%Y%m%d%H%M%S")
@@ -112,10 +112,10 @@ def AddSaintLuLogo(filePath):
                 
                 # Open the file with logo
                 WithLogo_file = open(WithLogo, "wb")
-                logging.info('Opening final file %s',os.path.basename(WithLogo_filepath))
+                logging.info('Opening final file "%s"',os.path.basename(WithLogo_filepath))
                 # Open the NoLogo File, Merge it with the Logo and save it
                 with open(NoLogo_file, "rb") as input_file, open(logo, "rb") as logo_file:
-                    logging.info('Opening nologo file %s',os.path.basename(NoLogo_filepath))
+                    logging.info('Opening nologo file "%s"',os.path.basename(NoLogo_filepath))
                     input_pdf = PdfReader(input_file)
                     logo_pdf = PdfReader(logo_file)
                     logo_page = logo_pdf.pages[0]
@@ -150,7 +150,7 @@ def AddSaintLuLogo(filePath):
                     shutil.move(NoLogo_filepath,newpath)
                     
                     print('Moving the file to Archives',os.path.basename(NoLogo_filepath))
-                    logging.info('File Moved to %s', os.path.abspath(NoLogo_filepath))
+                    logging.info('File Moved to "%s"', os.path.abspath(NoLogo_filepath))
                     print('--------------------------- Success -------------------------------')
                     # Save the new PDF as a file
                     
@@ -159,7 +159,7 @@ def AddSaintLuLogo(filePath):
                     # If the file cannot be moved, remove the created file to avoid future conflict
                     os.remove(WithLogo_filepath)
                     print("something went wrong while moving the file:")
-                    logging.error('Could not move the file to Archives')
+                    logging.error(f'Could not move the file to Archives because of: {e}')
                     print(e)
                 logging.info('----------------------------------')
             except Exception as e:
