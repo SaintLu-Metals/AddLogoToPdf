@@ -1,0 +1,38 @@
+from PyPDF2 import PdfFileMerger, PdfReader, PdfWriter
+import os
+import schedule
+import time
+import datetime
+import shutil
+import logging
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+
+
+class MyHandler(FileSystemEventHandler):
+    def on_modified(self, event):
+        print(f'File {event.src_path} has been modified')
+
+    def on_created(self, event):
+        print(f'File {event.src_path} has been created')
+        if "NoLogo" in event.src_path :
+            print(f"===== A new Quote/Order : {event.src_path}")
+
+    def on_deleted(self, event):
+        print(f'File {event.src_path} has been deleted')
+
+
+# Watchdog
+if __name__ == "__main__":
+    event_handler = MyHandler()
+    observer = Observer()
+    observer.schedule(event_handler, path=r'\\SERVER1\ServerData\Projects', recursive=True)
+    observer.start()
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()
+
